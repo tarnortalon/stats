@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Statistics</title>
+    <link>/post/</link>
+    <description>Recent content in Posts on Statistics</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 03 Feb 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Mean and variance</title>
+      <link>/post/mean-and-variance/</link>
+      <pubDate>Sat, 03 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/mean-and-variance/</guid>
+      <description>Mean The arithemetic mean of a population, or population mean, is denoted \(\mu\). The sample mean is the mean of a sample of values drawn from the population.
+The sample mean is a good estimator of the population mean. Its expected value is equal to the population mean (that is, it’s an unbiased estimator).
+The sample mean is a random variable, because its value depends on the sample drawn from the population.</description>
+    </item>
+    
+  </channel>
+</rss>

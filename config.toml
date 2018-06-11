@@ -1,0 +1,5 @@
+theme = "hugo-lithium-theme"
+baseURL = "/"
+languageCode = "en-us"
+title = "Statistics"
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]

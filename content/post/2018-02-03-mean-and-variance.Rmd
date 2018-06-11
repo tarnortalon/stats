@@ -1,0 +1,116 @@
+---
+title: Mean and variance
+author: Jarod Meng
+date: '2018-02-03'
+slug: mean-and-variance
+categories: []
+tags: []
+---
+
+## Mean
+
+The **arithmetic mean** of a _population_, or **population mean**, is denoted $\mu$.
+The **sample mean** is the mean of a sample of values drawn from the population.
+
+The sample mean is a good estimator of the population mean. Its expected value
+is equal to the population mean (that is, it's an _unbiased_ estimator).
+
+The sample mean is a **random variable**, because its value depends on the
+sample drawn from the population. Consequently it has its own distribution and
+this sampling distribution shouldn't be confused with the original population
+distribution.
+
+For a random sample of $n$ observations from a normally distributed population
+(that is, the original population is a normal distribution), the sample mean
+distribution (i.e. the [sampling distribution][1]) is normally distributed with
+mean and variance as follows:
+
+$$\bar{x} \thicksim N\left\{\mu, \frac{\sigma^2}{n}\right\}$$
+
+Here $\bar{x}$ denotes the random variable of sample mean. $\mu$ is the
+population mean and $\sigma$ is the population standard deviation.
+
+Here we create a sample by drawing 100 values from a normal distribution with
+mean equal to 0 and standard deviation equal to 1.
+
+```{r}
+set.seed(42)
+n <- 100
+sample_n <- rnorm(n = n, mean = 0, sd = 1)
+hist(sample_n)
+mean(sample_n)
+```
+
+The mean of this one sample is already close to 0.
+
+When we draw another sample with the same size, the distribution of that sample
+is going to look a bit different and the sample mean will differ too.
+
+```{r}
+second_sample_n <- rnorm(n = n, mean = 0, sd = 1)
+hist(second_sample_n)
+mean(second_sample_n)
+```
+
+The two sample means (`r mean(sample_n)` and `r mean(second_sample_n)`) are from
+the sampling distribution. If we repeat this sampling process a few times, we
+can visualize the sampling distribution.
+
+```{r}
+set.seed(42)
+times <- 500
+sample_distribution <- vector(mode = "numeric", length = times)
+for (i in seq(1, times, 1)) {
+  sample_distribution[i] <- mean(rnorm(n = n, mean = 0, sd = 1))
+}
+hist(sample_distribution, breaks = 30)
+```
+
+We can check that the two sample means are indeed drawn from the sampling
+distribution.
+
+```{r}
+sample_distribution[c(1, 2)]
+```
+
+The mean of the sampling distribution is very close to the population mean of 0.
+
+```{r}
+mean(sample_distribution)
+```
+
+The standard deviation of the sampling distribution is called the [standard
+error][2] of the parameter (i.e., population mean). It equals the population
+distribution's standard deviation divided by the squared root of sample size (`r
+n` in our example).
+
+```{r}
+sd(sample_distribution)
+1 / sqrt(n)
+```
+
+As we further increase the number of sampling, the mean and standard deviation
+of the resulting sampling distribution should approach their theoretical values.
+
+```{r}
+max_times <- 5000
+list_times <- seq(500, max_times, 100)
+list_mean <- vector(mode = "numeric", length = length(list_times))
+list_sd <- vector(mode = "numeric", length = length(list_times))
+set.seed(42)
+for (t in seq_along(list_times)) {
+  sample_distribution <- vector(mode = "numeric", length = list_times[t])
+  for (i in seq(1, list_times[t], 1)) {
+    sample_distribution[i] <- mean(rnorm(n = n, mean = 0, sd = 1))
+  }
+  list_mean[t] <- mean(sample_distribution)
+  list_sd[t] <- sd(sample_distribution)
+}
+plot(list_times, list_mean)
+abline(h = 0)
+plot(list_times, list_sd)
+abline(h = 1 / sqrt(n))
+```
+
+[1]: https://en.wikipedia.org/wiki/Sampling_distribution
+[2]: https://en.wikipedia.org/wiki/Standard_error
